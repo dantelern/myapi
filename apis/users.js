@@ -8,17 +8,17 @@ app.use(cors());
 
 let users = [];
 
-app.get('/users', (req, res) => {
+app.get('/api/users', (req, res) => {
   res.json(users);
 });
 
-app.post('/users', (req, res) => {
+app.post('/api/users', (req, res) => {
   const user = { id: users.length + 1, ...req.body };
   users.push(user);
   res.status(201).json(user);
 });
 
-app.get('/users/:id', (req, res) => {
+app.get('/api/users/:id', (req, res) => {
   const user = users.find(u => u.id === parseInt(req.params.id));
   if (user) {
     res.json(user);
@@ -27,7 +27,7 @@ app.get('/users/:id', (req, res) => {
   }
 });
 
-app.put('/users/:id', (req, res) => {
+app.put('/api/users/:id', (req, res) => {
   const user = users.find(u => u.id === parseInt(req.params.id));
   if (user) {
     Object.assign(user, req.body);
@@ -37,7 +37,7 @@ app.put('/users/:id', (req, res) => {
   }
 });
 
-app.delete('/users/:id', (req, res) => {
+app.delete('/api/users/:id', (req, res) => {
   const index = users.findIndex(u => u.id === parseInt(req.params.id));
   if (index !== -1) {
     users.splice(index, 1);
@@ -47,6 +47,4 @@ app.delete('/users/:id', (req, res) => {
   }
 });
 
-app.listen(3000, () => {
-  console.log('API corriendo en http://localhost:3000');
-});
+module.exports = app;
